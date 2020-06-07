@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Bibliothèque Incrémentale</title>
+<link rel="icon" href="https://img.icons8.com/offices/30/000000/library.png"/>
+<style>
+body{
+font-family:consolas;
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+.d1{
+border:1px solid gray;
+padding:1%;
+width:20%;
+border-radius:5px;
+background-color:rgba(200,200,200,0.9);
+}
+.d2{
+border:1px solid gray;
+padding:4%;
+width:90%;
+border-radius:5px;
+background-color:#fefefe;
+}
+#picbooks{
+text-align:right;
+width:100%;
+position:fixed;
+bottom:8px;
+right:8px;
+z-index:-99;
+}
+#dprom{
+display:none;
+}
+#divbooks{
+display:none;
+}
+#booksbr{
+display:none;
+}
+#roman1br{
+display:none;
+}
+#divbd{
+display:none;
+}
+#divmat{
+display:none;
+}
+#matbr{
+display:none;
+}
+#divrange{
+display:none;
+}
+#rangebr{
+display:none;
+}
+#divtotal{
+display:none;
+}
+.fade-in {
+animation: fadeIn ease 3s;
+-webkit-animation: fadeIn ease 3s;
+-moz-animation: fadeIn ease 3s;
+-o-animation: fadeIn ease 3s;
+-ms-animation: fadeIn ease 3s;
+}
+@keyframes fadeIn{
+0% {opacity:0;}
+100% {opacity:1;}
+}
+</style>
+</head>
+<body>
+<div id="picbooks"></div>
+<h2>Bibliothèque Incrémentale</h2>
+
+<div class="d1">🥇 Statut : <span class="fade-in" id="dstatut"></span><span id="dprom"><br><button class="fade-in" id="prom1">Promotion</button></span></div><br>
+
+<div class="d1">💰 Budget : <span id="dmoney"></span> €<br><br>
+<button id="work1">Travailler</button> gagne <span id="dsalary"></span> €</div><br>
+<div class="d1 fade-in" id="divbooks">📚 Livres<br><br>
+	<div class="d2">📖 Roman : <span id="droman1"></span><br><br>
+	<button id="buyroman1">Acheter</button> coûte <span id="dcroman1"></span> €</div><span id="roman1br"><br></span>
+	<div class="d2 fade-in" id="divbd">📖 Bande dessinée : <span id="dbd"></span><br><br>
+	<button id="buybd">Acheter</button> coûte <span id="dcbd"></span> €</div>
+</div><span id="booksbr"><br></span>
+
+<div class="d1 fade-in" id="divmat">🪑 Matériel<br><br>
+	<div class="d2">
+		🗄 Etagère : <span id="detagere"></span><br><br>
+		<button id="buyetagere">Acheter</button> <span id="dcetagere"></span> €
+	</div>
+</div><span id="matbr"><br></span>
+
+<div class="d1 fade-in" id="divrange">💪🏼 Rangement<br><br>
+	<div class="d2">
+		<span id="dnrdr">
+			Capacité : <span id="dcap"></span><br>
+			Documents non rangés : <span id="ddnr"></span><br>
+			Documents rangés : <span id="ddr"></span><br><br>
+		<button id="range">Ranger</button>
+		</span>
+	</div>
+</div><span id="rangebr"><br></span>
+
+<div class="d1 fade-in" id="divtotal">✔️ Total : <span id="dbooks"></span> documents</div>
+
+</body>
+<script>
+var picbooks=document.getElementById("picbooks");
+
+var statut=["Analphabète","Quasi-Analphabète","Lecteur Débutant"];
+var dstatut=document.getElementById("dstatut");
+var prom=0;
+var dprom=document.getElementById("dprom");
+
+var salary=[1000000,2,4];
+var dsalary=document.getElementById("dsalary");
+
+var money=0;
+var dmoney=document.getElementById("dmoney");
+
+var divbooks=document.getElementById("divbooks");
+var booksbr=document.getElementById("booksbr");
+
+var roman1=0;
+var droman1=document.getElementById("droman1");
+var croman1=15;
+var dcroman1=document.getElementById("dcroman1");
+
+var divbd=document.getElementById("divbd");
+var bd=0;
+var dbd=document.getElementById("dbd");
+var cbd=10;
+var dcbd=document.getElementById("dcbd");
+
+var divmat=document.getElementById("divmat");
+var matbr=document.getElementById("matbr");
+
+var etagere=0;
+var detagere=document.getElementById("detagere");
+var cetagere=100;
+var dcetagere=document.getElementById("dcetagere");
+
+var cap=0;
+var dcap=document.getElementById("dcap");
+
+var books=0;
+var dbooks=document.getElementById("dbooks");
+
+var dnrdr=document.getElementById("dnrdr");
+var dnr=0;
+var ddnr=document.getElementById("ddnr");
+var dr=0;
+var ddr=document.getElementById("ddr");
+
+var divtotal=document.getElementById("divtotal");
+
+dstatut.innerHTML=statut[prom];
+
+dsalary.innerHTML=salary[prom];
+dmoney.innerHTML=money;
+
+droman1.innerHTML=roman1;
+dcroman1.innerHTML=croman1;
+
+dbd.innerHTML=bd;
+dcbd.innerHTML=cbd;
+
+detagere.innerHTML=etagere;
+dcetagere.innerHTML=cetagere;
+dcap.innerHTML=cap;
+
+dbooks.innerHTML=books;
+
+ddnr.innerHTML=dnr;
+ddr.innerHTML=dr;
+
+function disp(){
+	if(money>=15){
+		divbooks.style.display="block";
+		booksbr.style.display="block";
+		divtotal.style.display="block";
+	}
+	if(roman1>=25){
+		divbd.style.display="block";
+		roman1br.style.display="block";
+	}
+	if(books>=50){
+		divmat.style.display="block";
+		matbr.style.display="block";
+	}
+	if(etagere>=1){
+		divrange.style.display="block";
+		rangebr.style.display="block";
+	}
+}
+
+function range1(){
+	if(cap>=1){
+	dr=dr+1;ddr.innerHTML=dr;
+	dnr=dnr-1;ddnr.innerHTML=dnr;
+	cap=cap-1;dcap.innerHTML=cap;
+	}
+}
+
+document.getElementById("work1").addEventListener("click",function(){
+	money=money+salary[prom];
+	dmoney.innerHTML=money;
+	disp();
+});
+
+document.getElementById("prom1").addEventListener("click",function(){
+	prom++;
+	dstatut.innerHTML=statut[prom];
+	dsalary.innerHTML=salary[prom];
+	dprom.style.display="none";
+});
+
+document.getElementById("buyroman1").addEventListener("click",function(){
+	if(money>=croman1){
+		money=money-croman1;
+		dmoney.innerHTML=money;
+		books=books+1;
+		roman1=roman1+1;
+		droman1.innerHTML=roman1;
+		dbooks.innerHTML=books;
+		dnr=dnr+1;ddnr.innerHTML=dnr;
+		disp();
+		picbooks.innerHTML+="📖";
+		if(roman1==1){
+			dprom.style.display="block";
+		}
+		if(roman1==10){
+			dprom.style.display="block";
+		}
+	}
+});
+
+document.getElementById("buybd").addEventListener("click",function(){
+	if(money>=cbd){
+		money=money-cbd;
+		dmoney.innerHTML=money;
+		books=books+1;
+		bd=bd+1;
+		dbd.innerHTML=bd;
+		dbooks.innerHTML=books;
+		dnr=dnr+1;
+		ddnr.innerHTML=dnr;
+		disp();
+		picbooks.innerHTML+="📖";
+	}
+});
+
+document.getElementById("buyetagere").addEventListener("click",function(){
+	if(money>=cetagere){
+		money=money-cetagere;
+		dmoney.innerHTML=money;
+		etagere=etagere+1;
+		detagere.innerHTML=etagere;
+		cap=cap+50;
+		dcap.innerHTML=cap;
+		disp();
+	}
+});
+
+document.getElementById("range").addEventListener("click",function(){
+	range1();
+});
+</script>
+</html>
